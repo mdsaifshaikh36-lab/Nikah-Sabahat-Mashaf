@@ -1,197 +1,178 @@
-const WEDDING_DATE = '2026-09-24T21:00:00+05:30';
+// ===============================
+// NIKAH COUNTDOWN + SCRATCH CARD
+// ===============================
 
-function openInvitation(){
-  const opening = document.getElementById('opening');
-  if (opening) {
-    opening.classList.add('closed');
-  }
-  makePetals();
+const target = new Date("2026-09-24T21:00:00+05:30").getTime();
+
+const scratchCanvas = document.getElementById("scratchCanvas");
+const scratchCard = document.getElementById("scratchCard");
+const countdownSection = document.getElementById("countdownSection");
+
+let isScratching = false;
+let revealed = false;
+
+// -------------------------------
+// COUNTDOWN
+// -------------------------------
+
+function updateCountdown() {
+  if (!revealed) return;
+
+  const now = Date.now();
+  let diff = target - now;
+
+  if (diff < 0) diff = 0;
+
+  const days = Math.floor(diff / 86400000);
+  diff %= 86400000;
+
+  const hours = Math.floor(diff / 3600000);
+  diff %= 3600000;
+
+  const minutes = Math.floor(diff / 60000);
+  const seconds = Math.floor((diff % 60000) / 1000);
+
+  document.getElementById("days").textContent =
+    String(days).padStart(2, "0");
+
+  document.getElementById("hours").textContent =
+    String(hours).padStart(2, "0");
+
+  document.getElementById("minutes").textContent =
+    String(minutes).padStart(2, "0");
+
+  document.getElementById("seconds").textContent =
+    String(seconds).padStart(2, "0");
 }
 
-function makePetals(){
-  const box = document.getElementById('petals');
-  if (!box) return;
+// -------------------------------
+// SCRATCH CARD
+// -------------------------------
 
-  for(let i = 0; i < 18; i++){
-    const p = document.createElement('span');
-    p.className = 'petal';
-    p.textContent = Math.random() > 0.45 ? '✦' : '❧';
-    p.style.left = Math.random() * 100 + '%';
-    p.style.animationDuration = (5 + Math.random() * 7) + 's';
-    p.style.animationDelay = (Math.random() * 2) + 's';
-    box.appendChild(p);
+function setupScratchCard() {
+  if (!scratchCanvas) return;
 
-    setTimeout(() => p.remove(), 13000);
-  }
-}
-
-/* =========================
-   COUNTDOWN
-========================= */
-
-function updateCountdown(){
-
-  const diff =
-    new Date(WEDDING_DATE).getTime() - Date.now();
-
-  const values = diff > 0
-    ? [
-        Math.floor(diff / 86400000),
-        Math.floor(diff / 3600000) % 24,
-        Math.floor(diff / 60000) % 60,
-        Math.floor(diff / 1000) % 60
-      ]
-    : [0,0,0,0];
-
-  const ids = ['days','hours','mins','secs'];
-
-  ids.forEach((id,i) => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = values[i];
+  const ctx = scratchCanvas.getContext("2d", {
+    willReadFrequently: true
   });
-}
 
-updateCountdown();
-setInterval(updateCountdown,1000);
+  function resizeCanvas() {
+    const rect = scratchCanvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
 
+    scratchCanvas.width = rect.width * dpr;
+    scratchCanvas.height = rect.height * dpr;
 
-/* =========================
-   SCRATCH CARD
-========================= */
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-const canvas = document.getElementById('scratchCanvas');
-
-if(canvas){
-
-  const ctx = canvas.getContext('2d');
-
-  let isScratching = false;
-  let revealed = false;
-
-  function resizeCanvas(){
-
-    const rect = canvas.getBoundingClientRect();
-
-    const ratio = Math.min(
-      window.devicePixelRatio || 1,
-      2
-    );
-
-    canvas.width = Math.floor(rect.width * ratio);
-    canvas.height = Math.floor(rect.height * ratio);
-
-    ctx.setTransform(
-      ratio,
-      0,
-      0,
-      ratio,
-      0,
-      0
-    );
-
-    paintCover();
-  }
-
-
-  function paintCover(){
-
-    const rect = canvas.getBoundingClientRect();
-
-    const width = rect.width;
-    const height = rect.height;
-
-    ctx.globalCompositeOperation = 'source-over';
-
+    // Gold scratch layer
     const gradient = ctx.createLinearGradient(
       0,
       0,
-      width,
-      height
+      rect.width,
+      rect.height
     );
 
-    gradient.addColorStop(0,'#e7cf8d');
-    gradient.addColorStop(.5,'#c9a45b');
-    gradient.addColorStop(1,'#8c682b');
+    gradient.addColorStop(0, "#d8b45c");
+    gradient.addColorStop(0.5, "#f0cf7b");
+    gradient.addColorStop(1, "#c69a3d");
 
     ctx.fillStyle = gradient;
-    ctx.fillRect(
-      0,
-      0,
-      width,
-      height
-    );
+    ctx.fillRect(0, 0, rect.width, rect.height);
 
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
+    // Subtle gold texture
+    ctx.fillStyle = "rgba(255,255,255,0.10)";
 
-    ctx.fillStyle = '#fff6d8';
+    for (let i = 0; i < 350; i++) {
+      const x = Math.random() * rect.width;
+      const y = Math.random() * rect.height;
+      const size = Math.random() * 2 + 1;
 
-    ctx.font =
-      '700 27px Georgia, serif';
+      ctx.fillRect(x, y, size, size);
+    }
 
-    ctx.fillText(
-      'SCRATCH ME ✦',
-      width / 2,
-      height / 2 - 15
-    );
+    // Scratch text
+    ctx.globalCompositeOperation = "source-over";
+    ctx.textAlign = "center";
 
-    ctx.font =
-      '17px Georgia, serif';
+    ctx.fillStyle = "#fff8df";
+    ctx.font = "600 22px Georgia";
 
     ctx.fillText(
-      'Reveal our Nikah date',
-      width / 2,
-      height / 2 + 25
+      "SCRATCH ME ✦",
+      rect.width / 2,
+      rect.height / 2 - 5
+    );
+
+    ctx.font = "15px Georgia";
+
+    ctx.fillText(
+      "Use your finger or mouse",
+      rect.width / 2,
+      rect.height / 2 + 25
     );
   }
 
+  resizeCanvas();
 
-  function getPosition(event){
+  window.addEventListener("resize", resizeCanvas);
 
-    const rect =
-      canvas.getBoundingClientRect();
+  function scratch(x, y) {
+    if (revealed) return;
+
+    ctx.globalCompositeOperation = "destination-out";
+
+    ctx.beginPath();
+    ctx.arc(x, y, 30, 0, Math.PI * 2);
+    ctx.fill();
+
+    checkScratchProgress();
+  }
+
+  function getPosition(e) {
+    const rect = scratchCanvas.getBoundingClientRect();
 
     return {
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
     };
   }
 
+  // Mouse
+  scratchCanvas.addEventListener("pointerdown", (e) => {
+    isScratching = true;
+    scratchCanvas.setPointerCapture(e.pointerId);
 
-  function scratch(event){
+    const pos = getPosition(e);
+    scratch(pos.x, pos.y);
+  });
 
-    if(!isScratching || revealed) return;
+  scratchCanvas.addEventListener("pointermove", (e) => {
+    if (!isScratching) return;
 
-    event.preventDefault();
+    const pos = getPosition(e);
+    scratch(pos.x, pos.y);
+  });
 
-    const pos = getPosition(event);
+  scratchCanvas.addEventListener("pointerup", () => {
+    isScratching = false;
+  });
 
-    ctx.globalCompositeOperation =
-      'destination-out';
+  scratchCanvas.addEventListener("pointercancel", () => {
+    isScratching = false;
+  });
 
-    ctx.beginPath();
+  // Check how much has been scratched
+  function checkScratchProgress() {
+    const width = scratchCanvas.width;
+    const height = scratchCanvas.height;
 
-    ctx.arc(
-      pos.x,
-      pos.y,
-      38,
+    // Sample pixels rather than checking every pixel
+    const imageData = ctx.getImageData(
       0,
-      Math.PI * 2
-    );
-
-    ctx.fill();
-
-    checkProgress();
-  }
-
-
-  function checkProgress(){
-
-    const data = ctx.getImageData(
       0,
-      0,
-      canvas.width,
-      canvas.height
+      width,
+      height
     ).data;
 
     let transparent = 0;
@@ -199,211 +180,62 @@ if(canvas){
 
     const step = 20;
 
-    for(
-      let y = 0;
-      y < canvas.height;
-      y += step
-    ){
-
-      for(
-        let x = 0;
-        x < canvas.width;
-        x += step
-      ){
-
-        const alpha =
-          data[
-            (y * canvas.width + x) * 4 + 3
-          ];
-
-        if(alpha < 100){
-          transparent++;
-        }
+    for (let y = 0; y < height; y += step) {
+      for (let x = 0; x < width; x += step) {
+        const index = (y * width + x) * 4;
 
         total++;
+
+        if (imageData[index + 3] < 80) {
+          transparent++;
+        }
       }
     }
 
-    const percentage =
-      transparent / total;
+    const percentage = (transparent / total) * 100;
 
-    if(percentage >= 0.35){
-      revealScratch();
+    if (percentage >= 55) {
+      revealCard();
     }
   }
 
-
-  function revealScratch(){
-
-    if(revealed) return;
+  function revealCard() {
+    if (revealed) return;
 
     revealed = true;
 
-    const status =
-      document.getElementById('scratchStatus');
+    scratchCanvas.style.transition =
+      "opacity 0.8s ease";
 
-    const hint =
-      document.getElementById('scratchHint');
-
-    const countdown =
-      document.getElementById('countdown');
-
-    if(status){
-      status.textContent =
-        'Alhamdulillah ♥ The countdown is revealed.';
-    }
-
-    if(hint){
-      hint.style.opacity = '0';
-    }
-
-    canvas.style.transition =
-      'opacity .7s ease';
-
-    canvas.style.opacity = '0';
-
-    if(countdown){
-      countdown.classList.remove('locked');
-    }
-
-    makePetals();
+    scratchCanvas.style.opacity = "0";
 
     setTimeout(() => {
+      scratchCanvas.style.display = "none";
+      scratchCard.classList.add("revealed");
+    }, 800);
 
-      canvas.style.display = 'none';
+    // NOW countdown starts
+    countdownSection.classList.add("revealed");
 
-      if(hint){
-        hint.style.display = 'none';
-      }
-
-      if(countdown){
-        countdown.scrollIntoView({
-          behavior:'smooth',
-          block:'start'
-        });
-      }
-
-    },750);
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
   }
-
-
-  /* MOUSE + TOUCH + PEN */
-
-  canvas.addEventListener(
-    'pointerdown',
-    function(event){
-
-      isScratching = true;
-
-      try{
-        canvas.setPointerCapture(
-          event.pointerId
-        );
-      }catch(error){}
-
-      scratch(event);
-    }
-  );
-
-
-  canvas.addEventListener(
-    'pointermove',
-    scratch
-  );
-
-
-  canvas.addEventListener(
-    'pointerup',
-    function(event){
-
-      isScratching = false;
-
-      try{
-        canvas.releasePointerCapture(
-          event.pointerId
-        );
-      }catch(error){}
-    }
-  );
-
-
-  canvas.addEventListener(
-    'pointercancel',
-    function(){
-      isScratching = false;
-    }
-  );
-
-
-  canvas.addEventListener(
-    'pointerleave',
-    function(){
-      isScratching = false;
-    }
-  );
-
-
-  /* IMPORTANT FOR LAPTOP + TOUCH */
-
-  canvas.style.pointerEvents = 'auto';
-  canvas.style.touchAction = 'none';
-  canvas.style.cursor = 'crosshair';
-
-  resizeCanvas();
-
-  window.addEventListener(
-    'resize',
-    function(){
-
-      if(!revealed){
-        resizeCanvas();
-      }
-
-    }
-  );
 }
 
+// -------------------------------
+// START
+// -------------------------------
 
-/* =========================
-   MUSIC
-========================= */
+document.addEventListener("DOMContentLoaded", () => {
+  setupScratchCard();
 
-const music =
-  document.getElementById('music');
+  const musicBtn = document.getElementById("musicBtn");
 
-const musicBtn =
-  document.getElementById('musicBtn');
-
-if(music && musicBtn){
-
-  musicBtn.addEventListener(
-    'click',
-    async function(){
-
-      try{
-
-        if(music.paused){
-
-          await music.play();
-
-          musicBtn.textContent = '❚❚';
-
-        }else{
-
-          music.pause();
-
-          musicBtn.textContent = '♫';
-
-        }
-
-      }catch(error){
-
-        musicBtn.textContent = '♫';
-
-        alert(
-          'Music ke liye website folder mein music.mp3 add karein.'
-        );
-      }
-    }
-  );
-}
+  if (musicBtn) {
+    musicBtn.addEventListener("click", () => {
+      alert(
+        "Music button ready — upload your MP3 later if you want background music."
+      );
+    });
+  }
+});
