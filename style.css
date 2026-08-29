@@ -894,150 +894,203 @@ footer small {
 }
 }
 /* =========================================================
-   SCRATCH SECTION — CORNER FLOATING LAMPS
+   SCRATCH SECTION — THREE FLOATING GOLDEN LAMPS
+   LEFT + CENTER + RIGHT
    ========================================================= */
 
 .scratch-section {
-  position: relative;
-  overflow: hidden;
+    position: relative;
+    overflow: hidden;
 }
 
-/* LEFT + RIGHT LAMP BASE */
-.scratch-section::before,
-.scratch-section::after {
-  content: "";
-  position: absolute;
-  top: 18px;
-  width: 58px;
-  height: 88px;
-  z-index: 3;
-  pointer-events: none;
 
-  /* Warm golden lantern body */
-  background:
-    radial-gradient(
-      circle at 50% 58%,
-      rgba(255, 248, 205, 0.98) 0%,
-      rgba(255, 218, 112, 0.88) 32%,
-      rgba(201, 163, 82, 0.92) 70%,
-      rgba(145, 105, 38, 0.92) 100%
-    );
+/* =========================
+   LAMP POSITIONING
+   ========================= */
 
-  border: 2px solid #c9a352;
-  border-radius: 9px 9px 15px 15px;
+.scratch-lamp {
+    position: absolute;
+    top: 18px;
 
-  box-shadow:
-    0 0 16px rgba(255, 218, 120, 0.55),
-    0 8px 25px rgba(92, 63, 20, 0.25),
-    inset 0 0 12px rgba(255, 255, 255, 0.45);
+    width: 58px;
+    height: 88px;
 
-  animation: scratchLampFloat 4.5s ease-in-out infinite;
+    z-index: 3;
+    pointer-events: none;
+
+    transform-origin: top center;
+
+    animation: scratchLampFloat 4.5s ease-in-out infinite;
 }
 
-/* LAMP DETAILS — top cap, chain, vertical frame lines */
-.scratch-section::before {
-  left: 22px;
 
-  background:
-    /* hanging chain */
-    linear-gradient(
-      #c9a352,
-      #c9a352
-    ) center top / 2px 18px no-repeat,
+/* LEFT LAMP */
 
-    /* top cap */
-    radial-gradient(
-      ellipse,
-      #d8b66b 0%,
-      #b88b35 75%,
-      transparent 76%
-    ) center 17px / 45px 12px no-repeat,
-
-    /* vertical frame */
-    linear-gradient(
-      to right,
-      transparent 0 10px,
-      rgba(143, 103, 35, .65) 10px 12px,
-      transparent 12px 45px,
-      rgba(143, 103, 35, .65) 45px 47px,
-      transparent 47px
-    ) center 27px / 100% 55px no-repeat,
-
-    /* glowing body */
-    radial-gradient(
-      circle at 50% 58%,
-      rgba(255, 248, 205, .98) 0%,
-      rgba(255, 218, 112, .88) 38%,
-      rgba(201, 163, 82, .92) 75%
-    );
-
-  animation-delay: -1.2s;
+.scratch-lamp-left {
+    left: 8%;
+    animation-delay: -1.2s;
 }
+
+
+/* CENTER LAMP */
+
+.scratch-lamp-center {
+    left: 50%;
+    transform: translateX(-50%);
+    animation-delay: -2.0s;
+}
+
 
 /* RIGHT LAMP */
-.scratch-section::after {
-  right: 22px;
 
-  background:
-    /* hanging chain */
-    linear-gradient(
-      #c9a352,
-      #c9a352
-    ) center top / 2px 18px no-repeat,
+.scratch-lamp-right {
+    right: 8%;
+    animation-delay: -2.8s;
+}
 
-    /* top cap */
-    radial-gradient(
-      ellipse,
-      #d8b66b 0%,
-      #b88b35 75%,
-      transparent 76%
-    ) center 17px / 45px 12px no-repeat,
 
-    /* vertical frame */
-    linear-gradient(
-      to right,
-      transparent 0 10px,
-      rgba(143, 103, 35, .65) 10px 12px,
-      transparent 12px 45px,
-      rgba(143, 103, 35, .65) 45px 47px,
-      transparent 47px
-    ) center 27px / 100% 55px no-repeat,
+/* =========================
+   HANGING CHAIN
+   ========================= */
 
-    /* glowing body */
-    radial-gradient(
-      circle at 50% 58%,
-      rgba(255, 248, 205, .98) 0%,
-      rgba(255, 218, 112, .88) 38%,
-      rgba(201, 163, 82, .92) 75%
+.scratch-lamp::before {
+    content: "";
+    position: absolute;
+
+    top: 0;
+    left: 50%;
+
+    width: 2px;
+    height: 18px;
+
+    transform: translateX(-50%);
+
+    background: linear-gradient(
+        to bottom,
+        #c9a352,
+        #b88b35
     );
 
-  animation-delay: -2.5s;
+    box-shadow:
+        0 0 3px rgba(201, 163, 82, 0.7);
 }
 
 
-/* SUBTLE FLOATING MOTION */
+/* =========================
+   GOLDEN LANTERN BODY
+   ========================= */
+
+.scratch-lamp::after {
+    content: "";
+
+    position: absolute;
+
+    top: 15px;
+    left: 50%;
+
+    width: 58px;
+    height: 73px;
+
+    transform: translateX(-50%);
+
+    border: 2px solid #c9a352;
+
+    border-radius: 9px 9px 15px 15px;
+
+    background:
+        radial-gradient(
+            circle at 50% 58%,
+            rgba(255, 248, 205, 0.98) 0%,
+            rgba(255, 218, 112, 0.88) 32%,
+            rgba(201, 163, 82, 0.92) 70%,
+            rgba(145, 105, 38, 0.92) 100%
+        );
+
+    box-shadow:
+        0 0 16px rgba(255, 218, 120, 0.55),
+        0 8px 25px rgba(92, 63, 20, 0.25),
+        inset 0 0 12px rgba(255, 255, 255, 0.45);
+}
+
+
+/* =========================
+   LAMP TOP CAP + FRAME
+   ========================= */
+
+.scratch-lamp {
+    background:
+        radial-gradient(
+            ellipse,
+            #d8b66b 0%,
+            #b88b35 75%,
+            transparent 76%
+        ) center 17px / 24px 12px no-repeat,
+
+        linear-gradient(
+            to right,
+            transparent 0 10px,
+            rgba(143, 103, 35, 0.65) 10px 12px,
+            transparent 12px 45px,
+            rgba(143, 103, 35, 0.65) 45px 47px,
+            transparent 47px
+        ) center 27px / 55px 100% no-repeat;
+}
+
+
+/* =========================
+   WARM INNER GLOW
+   ========================= */
+
+.scratch-lamp {
+    filter:
+        drop-shadow(0 0 5px rgba(255, 218, 120, 0.45));
+}
+
+
+/* =========================
+   FLOATING MOTION
+   ========================= */
+
 @keyframes scratchLampFloat {
-  0%, 100% {
-    transform: translateY(0) rotate(-1deg);
-  }
 
-  50% {
-    transform: translateY(8px) rotate(1deg);
-  }
+    0%, 100% {
+        margin-top: 0;
+        rotate: -1deg;
+    }
+
+    50% {
+        margin-top: 8px;
+        rotate: 1deg;
+    }
 }
 
 
-/* SMALL SCREEN — KEEP CORNERS CLEAN */
-@media (max-width: 600px) {
-  .scratch-section::before {
-    left: 8px;
-    transform: scale(.78);
-    transform-origin: top left;
-  }
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
-  .scratch-section::after {
-    right: 8px;
-    transform: scale(.78);
-    transform-origin: top right;
-  }
+@media (max-width: 600px) {
+
+    .scratch-lamp {
+        width: 45px;
+        height: 70px;
+        top: 12px;
+    }
+
+    .scratch-lamp::after {
+        width: 45px;
+        height: 58px;
+    }
+
+    .scratch-lamp-left {
+        left: 3%;
+    }
+
+    .scratch-lamp-center {
+        left: 50%;
+    }
+
+    .scratch-lamp-right {
+        right: 3%;
+    }
 }
