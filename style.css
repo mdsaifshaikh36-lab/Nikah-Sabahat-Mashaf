@@ -5,3 +5,149 @@
 .scratch-card canvas { z-index:3; display:block; touch-action:none !important; user-select:none; -webkit-user-select:none; -webkit-touch-callout:none; }
 .scratch-hint { z-index:4; pointer-events:none !important; }
 .scratch-reveal { position:relative; z-index:1; }
+/* =================================
+   SCRATCH TO REVEAL
+================================= */
+
+.scratch-section {
+  background:
+    radial-gradient(circle at top, #0d6658 0%, #075347 45%, #043d35 100%);
+  color: #fffaf0;
+  text-align: center;
+  padding: 80px 18px 90px;
+  position: relative;
+  overflow: hidden;
+}
+
+.scratch-section h2 {
+  color: #fffaf0;
+  margin-bottom: 8px;
+}
+
+.scratch-subtitle {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 24px;
+  color: #f0d99a;
+  margin-bottom: 35px;
+}
+
+.scratch-card {
+  width: min(760px, 94vw);
+  height: 340px;
+  margin: 0 auto;
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 2px solid #e0c47e;
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.25),
+    inset 0 0 30px rgba(255,255,255,.08);
+  background: #fffaf0;
+}
+
+.scratch-content {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: #073f38;
+  background:
+    radial-gradient(circle at center, #fffdf7, #f5ead0);
+}
+
+.scratch-content .arabic-small {
+  font-size: 28px;
+  color: #b48a35;
+  margin-bottom: 8px;
+}
+
+.scratch-content h3 {
+  font-size: 32px;
+  margin: 5px 0;
+}
+
+.reveal-date {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: #b48a35;
+  margin: 8px 0;
+}
+
+.scratch-content p {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 21px;
+  line-height: 1.4;
+}
+
+.reveal-mosque {
+  font-size: 30px;
+  color: #b48a35;
+}
+
+#scratchCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.scratch-card.revealed {
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.25),
+    0 0 35px rgba(224,196,126,.18);
+}
+
+.scratch-hint {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 18px;
+  color: #e8d39a;
+  margin-top: 20px;
+}
+
+/* Countdown remains hidden until scratch is completed */
+
+#countdownSection {
+  display: none;
+}
+
+#countdownSection.revealed {
+  display: block;
+}
+
+@media(max-width:650px) {
+
+  .scratch-section {
+    padding: 65px 12px 75px;
+  }
+
+  .scratch-card {
+    height: 300px;
+    width: 94vw;
+  }
+
+  .scratch-subtitle {
+    font-size: 20px;
+  }
+
+  .reveal-date {
+    font-size: 35px;
+  }
+
+  .scratch-content h3 {
+    font-size: 27px;
+  }
+
+  .scratch-content p {
+    font-size: 18px;
+  }
+
+}
