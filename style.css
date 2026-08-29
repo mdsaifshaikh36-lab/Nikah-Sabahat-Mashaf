@@ -1095,5 +1095,6 @@ footer small {
     }
 }
 .phone-number {
-    font-family: Georgia, "Times New Roman", serif !important;
+    font-family: "Arial", sans-serif !important;
+    font-weight: 600 !important;
 }
