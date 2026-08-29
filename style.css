@@ -98,9 +98,150 @@ section {
   box-shadow: 0 18px 55px rgba(83, 61, 24, .08);
 }
 
-.arch-top {
+/* FLOATING ISLAMIC LANTERN */
+
+.floating-lantern {
+  position: relative;
+  width: 105px;
+  height: 165px;
+  margin: 0 auto 24px;
+  animation: lanternFloat 4s ease-in-out infinite;
+  filter: drop-shadow(0 12px 22px rgba(184, 139, 53, .30));
+}
+
+.lantern-chain {
+  width: 2px;
+  height: 24px;
+  background: #c9a352;
+  margin: 0 auto;
+  opacity: .8;
+}
+
+.lantern-top {
+  width: 48px;
+  height: 13px;
+  margin: 0 auto;
+  background: #c9a352;
+  border-radius: 50% 50% 20% 20%;
+  position: relative;
+}
+
+.lantern-top::after {
+  content: "";
+  position: absolute;
+  width: 68px;
+  height: 3px;
+  background: #c9a352;
+  left: 50%;
+  top: 9px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+}
+
+.lantern-body {
+  position: relative;
+  width: 72px;
+  height: 82px;
+  margin: 0 auto;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(184, 139, 53, .85) 0%,
+      rgba(245, 214, 133, .95) 12%,
+      rgba(255, 241, 190, .98) 50%,
+      rgba(245, 214, 133, .95) 88%,
+      rgba(184, 139, 53, .85) 100%
+    );
+  border: 2px solid #c9a352;
+  border-radius: 10px 10px 18px 18px;
+  overflow: hidden;
+  box-shadow:
+    0 0 18px rgba(226, 192, 108, .38),
+    inset 0 0 18px rgba(255, 255, 255, .45);
+}
+
+.lantern-body::before,
+.lantern-body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: rgba(156, 112, 38, .55);
+}
+
+.lantern-body::before {
+  left: 15px;
+}
+
+.lantern-body::after {
+  right: 15px;
+}
+
+.lantern-glow {
+  position: absolute;
+  inset: 15px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 248, 210, .95) 0%,
+    rgba(255, 221, 125, .45) 45%,
+    transparent 72%
+  );
+  animation: lanternGlow 2.5s ease-in-out infinite;
+}
+
+.lantern-pattern {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 27px;
+  color: #9d742d;
+  z-index: 2;
+  opacity: .8;
+}
+
+.lantern-bottom {
+  width: 46px;
+  height: 13px;
+  margin: 0 auto;
+  background: #c9a352;
+  border-radius: 20% 20% 50% 50%;
+  position: relative;
+}
+
+.lantern-bottom::after {
+  content: "✦";
+  position: absolute;
+  left: 50%;
+  top: 7px;
+  transform: translateX(-50%);
   color: #c9a352;
-  font-size: 25px;
+  font-size: 14px;
+}
+
+@keyframes lanternFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+@keyframes lanternGlow {
+  0%, 100% {
+    opacity: .65;
+    transform: scale(.94);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
 }
 
 .invite-line {
@@ -648,4 +789,22 @@ footer small {
   .invitation-card h3 {
     font-size: 39px;
   }
+  .floating-lantern {
+  width: 82px;
+  height: 125px;
+  margin-bottom: 14px;
+}
+
+.lantern-body {
+  width: 62px;
+  height: 70px;
+}
+
+.lantern-top {
+  width: 42px;
+}
+
+.lantern-bottom {
+  width: 40px;
+}
 }
