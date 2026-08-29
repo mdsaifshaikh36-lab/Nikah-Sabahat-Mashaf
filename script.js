@@ -23,34 +23,107 @@ function updateCountdown(){
 }
 updateCountdown();setInterval(updateCountdown,1000);
 
-// Scratch reveal — works with mouse, pointer and touch.
-const canvas=document.getElementById('scratchCanvas');
-const ctx=canvas.getContext('2d',{willReadFrequently:true});
-let scratching=false,revealed=false;
-function resizeScratch(){
-  const r=canvas.getBoundingClientRect(),d=Math.max(1,window.devicePixelRatio||1);
-  canvas.width=Math.floor(r.width*d);canvas.height=Math.floor(r.height*d);ctx.setTransform(d,0,0,d,0,0);
-  ctx.globalCompositeOperation='source-over';
-  const g=ctx.createLinearGradient(0,0,r.width,r.height);g.addColorStop(0,'#d9bd75');g.addColorStop(.5,'#a47f37');g.addColorStop(1,'#6b511f');ctx.fillStyle=g;ctx.fillRect(0,0,r.width,r.height);
-  ctx.fillStyle='rgba(255,241,188,.95)';ctx.font='700 26px Cormorant Garamond';ctx.textAlign='center';ctx.fillText('SCRATCH ME ✦',r.width/2,r.height/2-5);ctx.font='18px Cormorant Garamond';ctx.fillText('Reveal our Nikah date',r.width/2,r.height/2+28);
+// Scratch reveal — robust mouse + touch + pointer support.
+const canvas = document.getElementById('scratchCanvas');
+const ctx = canvas.getContext('2d', { willReadFrequently: true });
+let scratching = false, revealed = false;
+
+function paintScratchCover() {
+  const r = canvas.getBoundingClientRect();
+  const d = Math.max(1, Math.min(3, window.devicePixelRatio || 1));
+  canvas.width = Math.round(r.width * d);
+  canvas.height = Math.round(r.height * d);
+  canvas.style.touchAction = 'none';
+  ctx.setTransform(d, 0, 0, d, 0, 0);
+  ctx.globalCompositeOperation = 'source-over';
+
+  const g = ctx.createLinearGradient(0, 0, r.width, r.height);
+  g.addColorStop(0, '#e4c982');
+  g.addColorStop(.5, '#b18a3e');
+  g.addColorStop(1, '#725522');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, r.width, r.height);
+
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillStyle = '#fff4c9';
+  ctx.font = '700 28px Georgia, serif';
+  ctx.fillText('SCRATCH ME ✦', r.width / 2, r.height / 2 - 12);
+  ctx.font = '18px Georgia, serif';
+  ctx.fillText('Reveal our Nikah date', r.width / 2, r.height / 2 + 25);
 }
-resizeScratch();window.addEventListener('resize',resizeScratch);
-function point(e){const r=canvas.getBoundingClientRect();return{x:(e.clientX??e.touches?.[0]?.clientX)-r.left,y:(e.clientY??e.touches?.[0]?.clientY)-r.top}}
-function scratch(e){if(!scratching||revealed)return;e.preventDefault();const p=point(e);ctx.globalCompositeOperation='destination-out';ctx.beginPath();ctx.arc(p.x,p.y,30,0,Math.PI*2);ctx.fill();checkScratch()}
-function checkScratch(){
-  const data=ctx.getImageData(0,0,canvas.width,canvas.height).data;let clear=0;
-  for(let i=3;i<data.length;i+=4)if(data[i]<20)clear++;
-  if(clear/(data.length/4)>.50)revealScratch();
+
+function getPoint(e) {
+  const r = canvas.getBoundingClientRect();
+  return {
+    x: e.clientX - r.left,
+    y: e.clientY - r.top
+  };
 }
-function revealScratch(){
-  if(revealed)return;revealed=true;canvas.style.transition='.6s';canvas.style.opacity='0';document.getElementById('scratchHint').style.opacity='0';
-  setTimeout(()=>{canvas.style.display='none';document.getElementById('scratchHint').style.display='none';},650);
-  document.getElementById('scratchStatus').textContent="Alhamdulillah ♥ The countdown is now revealed.";
-  const section=document.getElementById('countdown');section.classList.remove('locked');
-  makePetals();setTimeout(()=>section.scrollIntoView({behavior:'smooth',block:'start'}),500);
+
+function scratch(e) {
+  if (!scratching || revealed) return;
+  e.preventDefault();
+  const p = getPoint(e);
+  ctx.globalCompositeOperation = 'destination-out';
+  ctx.beginPath();
+  ctx.arc(p.x, p.y, 34, 0, Math.PI * 2);
+  ctx.fill();
+  checkScratch();
 }
-canvas.addEventListener('pointerdown',e=>{scratching=true;scratch(e)});canvas.addEventListener('pointermove',scratch);window.addEventListener('pointerup',()=>scratching=false);
-canvas.addEventListener('touchstart',e=>{scratching=true;scratch(e)},{passive:false});canvas.addEventListener('touchmove',scratch,{passive:false});canvas.addEventListener('touchend',()=>scratching=false);
+
+function checkScratch() {
+  // Check a smaller sample for speed and reliability on high-DPI phones.
+  const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+  let clear = 0;
+  const step = 16;
+  let total = 0;
+  for (let y = 0; y < canvas.height; y += step) {
+    for (let x = 0; x < canvas.width; x += step) {
+      const a = data[(y * canvas.width + x) * 4 + 3];
+      if (a < 80) clear++;
+      total++;
+    }
+  }
+  if (total && clear / total >= 0.42) revealScratch();
+}
+
+function revealScratch() {
+  if (revealed) return;
+  revealed = true;
+  canvas.style.pointerEvents = 'none';
+  canvas.style.transition = 'opacity .65s ease';
+  canvas.style.opacity = '0';
+  document.getElementById('scratchHint').style.opacity = '0';
+  document.getElementById('scratchStatus').textContent = 'Alhamdulillah ♥ The countdown is now revealed.';
+
+  const section = document.getElementById('countdown');
+  section.classList.remove('locked');
+  makePetals();
+  setTimeout(() => {
+    canvas.style.display = 'none';
+    document.getElementById('scratchHint').style.display = 'none';
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 700);
+}
+
+paintScratchCover();
+window.addEventListener('resize', () => {
+  if (!revealed) paintScratchCover();
+});
+
+canvas.addEventListener('pointerdown', e => {
+  scratching = true;
+  try { canvas.setPointerCapture(e.pointerId); } catch {}
+  scratch(e);
+});
+canvas.addEventListener('pointermove', scratch);
+canvas.addEventListener('pointerup', e => {
+  scratching = false;
+  try { canvas.releasePointerCapture(e.pointerId); } catch {}
+});
+canvas.addEventListener('pointercancel', () => scratching = false);
+canvas.addEventListener('pointerleave', () => { scratching = false; });
 
 const music=document.getElementById('music'),musicBtn=document.getElementById('musicBtn');
 musicBtn.addEventListener('click',async()=>{try{if(music.paused){await music.play();musicBtn.textContent='❚❚'}else{music.pause();musicBtn.textContent='♫'}}catch{musicBtn.textContent='♫';alert('Music ke liye website folder mein music.mp3 file add kar dein.')}});
