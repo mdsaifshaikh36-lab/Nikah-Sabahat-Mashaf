@@ -100,66 +100,98 @@ section {
 
 /* FLOATING ISLAMIC LANTERN */
 
+/* ✨ FLOATING ISLAMIC LANTERN - NEW DESIGN */
+
 .floating-lantern {
   position: relative;
-  width: 105px;
-  height: 165px;
-  margin: 0 auto 24px;
-  animation: lanternFloat 4s ease-in-out infinite;
-  filter: drop-shadow(0 12px 22px rgba(184, 139, 53, .30));
+  width: 115px;
+  height: 180px;
+  margin: 0 auto 26px;
+  animation: lanternFloat 4.5s ease-in-out infinite;
+  filter: drop-shadow(0 15px 25px rgba(184, 139, 53, .35));
 }
 
+/* Hanging chain */
 .lantern-chain {
   width: 2px;
-  height: 24px;
-  background: #c9a352;
+  height: 30px;
+  background: linear-gradient(
+    to bottom,
+    #8d6420,
+    #e8c76f,
+    #9b7028
+  );
   margin: 0 auto;
-  opacity: .8;
+  opacity: .9;
+  box-shadow: 0 0 5px rgba(226, 192, 108, .45);
 }
 
+/* Top crown */
 .lantern-top {
-  width: 48px;
-  height: 13px;
+  width: 52px;
+  height: 15px;
   margin: 0 auto;
-  background: #c9a352;
-  border-radius: 50% 50% 20% 20%;
+  background: linear-gradient(
+    90deg,
+    #8d6420,
+    #d8b45c,
+    #f3d887,
+    #c39a42,
+    #8d6420
+  );
+  border-radius: 50% 50% 25% 25%;
   position: relative;
+  box-shadow:
+    0 2px 5px rgba(83, 61, 24, .3),
+    0 0 8px rgba(226, 192, 108, .3);
 }
 
+/* Crown ring */
 .lantern-top::after {
   content: "";
   position: absolute;
-  width: 68px;
-  height: 3px;
-  background: #c9a352;
+  width: 76px;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    #9a7129,
+    #f1d37c,
+    #9a7129
+  );
   left: 50%;
-  top: 9px;
+  top: 10px;
   transform: translateX(-50%);
   border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(82, 60, 20, .25);
 }
 
+/* Main lantern body */
 .lantern-body {
   position: relative;
-  width: 72px;
-  height: 82px;
+  width: 78px;
+  height: 92px;
   margin: 0 auto;
   background:
     linear-gradient(
       90deg,
-      rgba(184, 139, 53, .85) 0%,
-      rgba(245, 214, 133, .95) 12%,
-      rgba(255, 241, 190, .98) 50%,
-      rgba(245, 214, 133, .95) 88%,
-      rgba(184, 139, 53, .85) 100%
+      rgba(143, 99, 28, .92) 0%,
+      rgba(218, 179, 91, .95) 10%,
+      rgba(255, 229, 145, .98) 25%,
+      rgba(255, 248, 205, 1) 50%,
+      rgba(255, 229, 145, .98) 75%,
+      rgba(218, 179, 91, .95) 90%,
+      rgba(143, 99, 28, .92) 100%
     );
-  border: 2px solid #c9a352;
-  border-radius: 10px 10px 18px 18px;
+  border: 2px solid #b88932;
+  border-radius: 12px 12px 22px 22px;
   overflow: hidden;
   box-shadow:
-    0 0 18px rgba(226, 192, 108, .38),
-    inset 0 0 18px rgba(255, 255, 255, .45);
+    0 0 22px rgba(226, 192, 108, .48),
+    0 0 45px rgba(255, 220, 120, .22),
+    inset 0 0 20px rgba(255, 255, 255, .5);
 }
 
+/* Vertical metal ribs */
 .lantern-body::before,
 .lantern-body::after {
   content: "";
@@ -167,80 +199,133 @@ section {
   top: 0;
   bottom: 0;
   width: 3px;
-  background: rgba(156, 112, 38, .55);
+  background: linear-gradient(
+    to bottom,
+    rgba(132, 91, 24, .75),
+    rgba(244, 213, 123, .8),
+    rgba(132, 91, 24, .75)
+  );
+  z-index: 3;
 }
 
 .lantern-body::before {
-  left: 15px;
+  left: 14px;
 }
 
 .lantern-body::after {
-  right: 15px;
+  right: 14px;
 }
 
+/* Inner warm light */
 .lantern-glow {
   position: absolute;
-  inset: 15px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(255, 248, 210, .95) 0%,
-    rgba(255, 221, 125, .45) 45%,
-    transparent 72%
-  );
-  animation: lanternGlow 2.5s ease-in-out infinite;
+  inset: 8px;
+  border-radius: 45%;
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 255, 225, 1) 0%,
+      rgba(255, 232, 145, .95) 28%,
+      rgba(255, 207, 82, .55) 55%,
+      transparent 78%
+    );
+  animation: lanternGlow 2.8s ease-in-out infinite;
+  filter: blur(.4px);
 }
 
+/* Islamic star detail */
 .lantern-pattern {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 27px;
-  color: #9d742d;
-  z-index: 2;
-  opacity: .8;
+  font-size: 30px;
+  color: rgba(139, 100, 34, .8);
+  text-shadow:
+    0 0 4px rgba(255, 250, 210, .8),
+    0 0 10px rgba(201, 163, 82, .5);
+  z-index: 4;
+  opacity: .85;
 }
 
+/* Bottom crown */
 .lantern-bottom {
-  width: 46px;
-  height: 13px;
+  width: 50px;
+  height: 15px;
   margin: 0 auto;
-  background: #c9a352;
-  border-radius: 20% 20% 50% 50%;
+  background: linear-gradient(
+    90deg,
+    #8d6420,
+    #d8b45c,
+    #f1d37c,
+    #c39a42,
+    #8d6420
+  );
+  border-radius: 20% 20% 55% 55%;
   position: relative;
+  box-shadow:
+    0 3px 6px rgba(83, 61, 24, .25),
+    0 0 8px rgba(226, 192, 108, .25);
 }
 
+/* Hanging star */
 .lantern-bottom::after {
   content: "✦";
   position: absolute;
   left: 50%;
-  top: 7px;
+  top: 8px;
   transform: translateX(-50%);
-  color: #c9a352;
-  font-size: 14px;
+  color: #d4ad50;
+  font-size: 16px;
+  text-shadow:
+    0 0 5px rgba(255, 226, 125, .8),
+    0 0 10px rgba(255, 210, 90, .45);
 }
 
+/* Floating movement */
 @keyframes lanternFloat {
   0%, 100% {
-    transform: translateY(0);
+    transform: translateY(0) rotate(-1deg);
+  }
+
+  25% {
+    transform: translateY(-5px) rotate(1deg);
   }
 
   50% {
-    transform: translateY(-9px);
+    transform: translateY(-12px) rotate(-1deg);
+  }
+
+  75% {
+    transform: translateY(-5px) rotate(1deg);
   }
 }
 
+/* Flickering warm light */
 @keyframes lanternGlow {
   0%, 100% {
-    opacity: .65;
+    opacity: .68;
     transform: scale(.94);
+    filter: brightness(.95);
+  }
+
+  25% {
+    opacity: .82;
+    transform: scale(1);
+    filter: brightness(1.02);
   }
 
   50% {
     opacity: 1;
     transform: scale(1.08);
+    filter: brightness(1.12);
+  }
+
+  75% {
+    opacity: .8;
+    transform: scale(1.01);
+    filter: brightness(1);
   }
 }
 
