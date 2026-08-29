@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#073b32">
+<meta name="description" content="Sabahat & Mashaf — Wedding Invitation">
+<title>Sabahat ♥ Mashaf | Nikah Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="opening" class="opening">
+  <div class="opening-card">
+    <div class="lanterns">✦　☪　✦</div>
+    <div class="arabic large">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+    <div class="arabic small">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا</div>
+    <p>In the name of Allah, the Most Merciful, the Most Beneficent</p>
+    <h1>Sabahat <span>♥</span> Mashaf</h1>
+    <p class="gold-text">A beautiful journey begins with Bismillah.</p>
+    <button class="gold-btn" onclick="openInvitation()">OPEN INVITATION ✦</button>
+  </div>
+</div>
+
+<div id="petals" class="petals"></div>
+<nav>
+  <div class="nav-inner"><a href="#home">S &amp; M</a><div class="nav-links"><a href="#home">Home</a><a href="#celebrations">Celebrations</a><a href="#location">Location</a></div><button id="musicBtn" class="nav-music">♫</button></div>
+</nav>
+
+<main>
+<section id="home" class="hero section">
+  <div class="mosque-bg">☪</div>
+  <div class="hero-arch">
+    <div class="arch-top">✦　◇　✦</div>
+    <div class="arabic bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+    <p class="eyebrow">TOGETHER WITH THE BLESSINGS OF ALLAH ﷻ</p>
+    <p class="quran">وَجَعَلْنَا بَيْنَكُم مَّوَدَّةً وَرَحْمَةً</p>
+    <p class="translation">“And We placed between you affection and mercy.”</p>
+    <div class="couple-icons">👰🏻‍♀️ <span>♥</span> 🤵🏻</div>
+    <h1>Sabahat</h1><div class="amp">&amp;</div><h1>Mashaf</h1>
+    <div class="ornament">❧ ✦ ❧</div>
+    <p class="invite-copy">With the blessings of their families, they invite you to celebrate their Nikah.</p>
+    <p class="arabic blessing">الحمد لله رب العالمين</p>
+  </div>
+</section>
+
+<section id="scratch" class="section dark-section scratch-section">
+  <div class="section-inner center">
+    <div class="ornament gold">☪　✦　☪</div>
+    <h2>Scratch to Reveal</h2>
+    <p>Reveal the most awaited moment of our journey.</p>
+    <div class="scratch-card">
+      <div class="scratch-reveal">
+        <div class="arabic reveal-arabic">الحمد لله</div>
+        <h3>Our Nikah</h3>
+        <div class="reveal-date">24 September 2026</div>
+        <div class="reveal-time">9:00 PM</div>
+        <p>Insha'Allah ♥</p>
+      </div>
+      <canvas id="scratchCanvas"></canvas>
+      <div id="scratchHint" class="scratch-hint">SCRATCH ME ✦<small>Use your finger</small></div>
+    </div>
+    <p id="scratchStatus" class="scratch-status">Keep scratching until the gold veil disappears.</p>
+  </div>
+</section>
+
+<section id="countdown" class="section countdown-section locked">
+  <div class="section-inner center">
+    <div class="ornament">✦　◇　✦</div>
+    <p class="arabic quran-title">بَارَكَ اللَّهُ لَكُمَا</p>
+    <h2>Counting Down to Our Nikah ♥</h2>
+    <p class="date-line">24 September 2026 · 9:00 PM</p>
+    <div class="countdown">
+      <div class="timebox"><b id="days">0</b><span>Days</span></div>
+      <div class="timebox"><b id="hours">0</b><span>Hours</span></div>
+      <div class="timebox"><b id="mins">0</b><span>Minutes</span></div>
+      <div class="timebox"><b id="secs">0</b><span>Seconds</span></div>
+    </div>
+    <p class="arabic dua">بَارَكَ اللَّهُ لَكُمَا وَبَارَكَ عَلَيْكُمَا وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ</p>
+  </div>
+</section>
+
+<section id="celebrations" class="section">
+  <div class="section-inner">
+    <div class="center"><div class="ornament">✦　◇　✦</div><h2>Our Wedding Celebrations</h2><p>Three beautiful moments leading to our Nikah.</p></div>
+    <div class="timeline">
+      <article class="event-card"><div class="event-icon">🌻</div><div class="event-tag">22 SEPTEMBER 2026</div><h3>Haldi</h3><div class="event-time">7:00 PM</div><p>Join us for an evening filled with flowers, joy and beautiful memories.</p><div class="card-ornament">❧ ✦ ❧</div></article>
+      <article class="event-card"><div class="event-icon">☪</div><div class="event-tag">23 SEPTEMBER 2026</div><h3>Milad-ul-Nabi ﷺ</h3><div class="event-time">After Maghrib</div><p>An evening of remembrance, durood and blessings, Insha'Allah.</p><div class="card-ornament">❧ ✦ ❧</div></article>
+      <article class="event-card nikah-card"><div class="event-icon">💍</div><div class="event-tag">24 SEPTEMBER 2026</div><h3>Nikah</h3><div class="event-time">9:00 PM</div><p>The most awaited moment as Sabahat &amp; Mashaf begin their new journey together.</p><div class="card-ornament">❧ ✦ ❧</div></article>
+    </div>
+  </div>
+</section>
+
+<section class="section family-section dark-section">
+  <div class="section-inner center family-card">
+    <div class="ornament gold">✦　☪　✦</div>
+    <div class="arabic bismillah-small">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+    <p class="uppercase gold-text">In the name of Allah,</p>
+    <p class="uppercase">the Most Merciful and the Most Beneficent</p>
+    <div class="divider">◆</div>
+    <h3>Mr. &amp; Mrs. MD AYUB</h3>
+    <p>request your gracious presence on the auspicious occasion of the marriage ceremony for their beloved Daughter.</p>
+    <h2 class="family-name">Sabahat Perween</h2>
+    <div class="with-line">— With —</div>
+    <h2 class="family-name">Mohammad Mashaf</h2>
+    <p class="groom-detail">S/o — Late Mohammad Tarique Siddique</p>
+    <p>Vill, Mahmoodpur, Ward No. 11<br>Post, Halihat, P.S. Chaklalshahi Chowk<br>Dist. Samastipur, Bihar</p>
+  </div>
+</section>
+
+<section id="location" class="section location-section">
+  <div class="section-inner">
+    <div class="center"><div class="ornament">✦　◇　✦</div><h2>Venue</h2><p>We would be honoured to celebrate these beautiful moments with you.</p></div>
+    <div class="venue-card center">
+      <div class="venue-icon">⌖</div>
+      <h3>Venue Details</h3>
+      <p>Vii-Shaikhtoly, Mohiuddin Nagar,<br>Dist-Samastipur, Bihar</p>
+      <a class="gold-btn inline-btn" target="_blank" rel="noopener" href="https://maps.app.goo.gl/4GcHFpjg3uXZ4vTh8?g_st=ic">📍 VIEW ON GOOGLE MAPS</a>
+    </div>
+    <div class="rsvp-card center">
+      <div class="ornament">❧ ✦ ❧</div><h3>R.S.V.P</h3><p class="rsvp-name">MD AYUB</p><p>All Relative &amp; Friends</p>
+    </div>
+  </div>
+</section>
+
+<section class="section dua-section dark-section">
+  <div class="section-inner center">
+    <div class="arabic dua-big">بَارَكَ اللَّهُ لَكُمَا وَبَارَكَ عَلَيْكُمَا وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ</div>
+    <p>May Allah bless you both, shower His blessings upon you, and unite you both in goodness.</p>
+    <div class="ornament gold">✦　♥　✦</div>
+    <h2>Sabahat ♥ Mashaf</h2><p>With love, duas &amp; blessings</p>
+  </div>
+</section>
+</main>
+
+<footer><div class="ornament">✦　◇　✦</div><p>Jazakumullahu Khairan for celebrating with us.</p><p class="arabic">جزاكم الله خيرًا</p></footer>
+<audio id="music" loop preload="none" src="music.mp3"></audio>
+<script src="script.js"></script>
+</body>
+</html>
