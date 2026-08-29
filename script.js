@@ -168,12 +168,12 @@ function setupScratchCard() {
 
     if (status) {
       status.textContent =
-        percentage < 55
+        percentage < 30
           ? "Keep scratching… ✦"
           : "Revealing your Nikah moment…";
     }
 
-    if (percentage >= 55) {
+    if (percentage >= 30) {
       reveal();
     }
   }
