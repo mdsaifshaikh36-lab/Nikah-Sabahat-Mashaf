@@ -1098,3 +1098,13 @@ footer small {
     font-family: "Arial", sans-serif !important;
     font-weight: 600 !important;
 }
+.corner-name {
+    position: fixed;
+    right: 20px;
+    bottom: 15px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: #c49a55;
+    z-index: 9999;
+}
