@@ -210,13 +210,22 @@ if (bgMusic) {
     drawing = true;
     lastPoint = null;
 
-    try {
-      canvas.setPointerCapture(event.pointerId);
-    } catch (_) {}
+// Unlock audio on user's first touch
+const bgMusic = document.getElementById("bgMusic");
+if (bgMusic) {
+    bgMusic.play().then(() => {
+        bgMusic.pause();
+        bgMusic.currentTime = 0;
+    }).catch(() => {});
+}
+
+try {
+    canvas.setPointerCapture(event.pointerId);
+} catch (_) {}
 
     const point = getPoint(event);
     eraseAt(point.x, point.y);
-  });
+});
 
   canvas.addEventListener("pointermove", (event) => {
     if (!drawing || revealed) return;
