@@ -180,7 +180,10 @@ function setupScratchCard() {
 
   function reveal() {
     if (revealed) return;
-
+const bgMusic = document.getElementById("bgMusic");
+if (bgMusic) {
+    bgMusic.play().catch(() => {});
+}
     revealed = true;
 
     card.classList.add("revealed");
