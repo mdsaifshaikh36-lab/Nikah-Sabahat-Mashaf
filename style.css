@@ -1099,12 +1099,12 @@ footer small {
     font-weight: 600 !important;
 }
 .corner-name {
-    position: fixed;
-    right: 20px;
-    bottom: 15px;
+    text-align: right;
+    margin-top: 10px;
+    padding-right: 25px;
     font-family: Georgia, "Times New Roman", serif;
     font-size: 30px;
     letter-spacing: 2px;
     color: #c49a55;
-    z-index: 9999;
+    font-weight: 600;
 }
